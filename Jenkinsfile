@@ -28,14 +28,16 @@ stage('OWASP Dependency Check') {
         NVD_API_KEY = credentials('nvd-api-key')
     }
     steps {
+        // Run the scan
         dependencyCheck additionalArguments: '''
         --scan .
         --format XML,HTML
-        --out ./odc-report
+        --out odc-report
         --data /var/lib/jenkins/odc-data
         ''', odcInstallation: 'dc'
 
-        dependencyCheckPublisher pattern: '**/odc-report/dependency-check-report.xml'
+        // Only publish XML (Jenkins parses XML, not HTML)
+        dependencyCheckPublisher pattern: 'odc-report/dependency-check-report.xml'
     }
 }
 
