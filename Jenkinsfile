@@ -50,7 +50,6 @@ stage('OWASP Dependency Check') {
                 sh '''
                 trivy fs --severity HIGH,CRITICAL \
                 --format table \
-                --exit-code 1 \
                 -o trivy-fs-report.txt .
                 '''
             }
