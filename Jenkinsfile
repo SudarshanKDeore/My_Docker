@@ -24,6 +24,9 @@ pipeline{
             }
         
 stage('OWASP Dependency Check') {
+        environment {
+        DC_NVD_API_KEY = credentials('nvd-api-key')
+    }
     steps {
         withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_API_KEY')]) {
             dependencyCheck additionalArguments: """
