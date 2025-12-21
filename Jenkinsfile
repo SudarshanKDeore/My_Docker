@@ -56,27 +56,15 @@ stage('OWASP Dependency Check') {
                 }
             }
         
-stage('Trivy File System Scan (HTML)') {
-    steps {
-        sh '''
-        mkdir -p trivy-templates
-
-        if [ ! -f trivy-templates/html.tpl ]; then
-          curl -o trivy-templates/html.tpl \
-          https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl
-        fi
-
-        trivy fs \
-        --severity HIGH,CRITICAL \
-        --format template \
-        --template "@trivy-templates/html.tpl" \
-        -o trivy-fs-report.html \
-        . || true
-        '''
-    }
-}
-                            //  --format table \
-                            // -o trivy-fs-report.txt .
+        stage('Trivy File System Scan'){
+            steps {
+                sh '''
+                trivy fs --severity HIGH,CRITICAL \
+                --format table \
+                -o trivy-fs-report.txt .
+                '''
+            }
+        }
         
         stage('Docker build'){
             steps{
