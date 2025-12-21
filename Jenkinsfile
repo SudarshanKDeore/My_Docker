@@ -27,6 +27,9 @@ stage('OWASP Dependency Check') {
     environment {
         NVD_API_KEY = credentials('nvd-api-key')
     }
+        tools {
+        maven 'M3'  // Name of Maven installation configured in Jenkins
+    }
     steps {
         // 1️⃣ Ensure output folder exists
         sh 'mkdir -p odc-report'
