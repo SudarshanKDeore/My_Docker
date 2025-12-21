@@ -35,7 +35,7 @@ stage('OWASP Dependency Check') {
         --data /var/lib/jenkins/odc-data
         ''', odcInstallation: 'dc'
 
-        dependencyCheckPublisher pattern: '**/odc-report/dependency-check-report.xml'
+        dependencyCheckPublisher pattern: '**/odc-report/dependency-check-report.html'
     }
 }
 
