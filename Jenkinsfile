@@ -28,18 +28,21 @@ stage('OWASP Dependency Check') {
         NVD_API_KEY = credentials('nvd-api-key')
     }
     steps {
-        // Make sure output folder exists
+        // 1️⃣ Ensure output folder exists
         sh 'mkdir -p odc-report'
 
-        // Run Dependency-Check (HTML + XML via ALL)
+        // 2️⃣ Build Maven project to download dependencies
+        sh 'mvn clean compile'
+
+        // 3️⃣ Run Dependency-Check (HTML + XML via ALL)
         dependencyCheck additionalArguments: '''
-        --scan .
+        --scan target/dependency
         --format ALL
         --out odc-report
         --data /var/lib/jenkins/odc-data
         ''', odcInstallation: 'dc'
 
-        // Only publish XML (Jenkins parses XML, not HTML)
+        // 4️⃣ Publish XML report in Jenkins
         dependencyCheckPublisher pattern: 'odc-report/dependency-check-report.xml'
     }
 }
