@@ -65,9 +65,9 @@ stage('OWASP Dependency Check') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=Wanderlust-App \
-                    -Dsonar.projectName=Wanderlust-App \
+                    mvn clean verify sonar:sonar \
+                    -Dsonar.projectKey=sonar-demo-app \
+                    -Dsonar.projectName=sonar-demo-app \
                     -Dsonar.host.url=$SONAR_HOST_URL \
                     -Dsonar.login=$SONAR_TOKEN
                     '''
