@@ -4,6 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+public class FailGate {
+
+    private static final String SECRET = "password123";
+
+    public static void main(String[] args) {
+        String s = null;
+        System.out.println(s.length());
+    }
+}
+
 public class BadCodeExample {
 
     // 🔐 Security Vulnerability (Hardcoded credentials)
