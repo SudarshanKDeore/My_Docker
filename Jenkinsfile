@@ -66,7 +66,7 @@ stage('OWASP Dependency Check') {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
                     mvn clean verify sonar:sonar \
-                    -Dsonar.sources=java
+                    -Dsonar.sources=src/main/java
                     -Dsonar.projectKey=sonar-demo-app \
                     -Dsonar.projectName=sonar-demo-app \
                     -Dsonar.host.url=$SONAR_HOST_URL \
